@@ -27,7 +27,7 @@
       <div class="group relative overflow-hidden bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-lg p-7 flex flex-col justify-between hover:border-blue-500/50 hover:shadow-blue-500/5 hover:scale-[1.01] transition-all duration-300">
         <div class="space-y-5">
           <div class="w-12 h-12 bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 rounded-2xl flex items-center justify-center text-2xl font-bold">
-            12
+            123
           </div>
           <div class="space-y-1.5">
             <h3 class="text-xl font-extrabold text-slate-850 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
