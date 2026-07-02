@@ -6,17 +6,30 @@ import StartScreen from './components/StartScreen.vue';
 import QuizScreen from './components/QuizScreen.vue';
 import ResultScreen from './components/ResultScreen.vue';
 import StereoQuizScreen from './components/StereoQuizScreen.vue';
+import LogicQuizScreen from './components/LogicQuizScreen.vue';
+import MemoryQuizScreen from './components/MemoryQuizScreen.vue';
+import SpatialQuizScreen from './components/SpatialQuizScreen.vue';
 
 const quiz = useQuiz();
 
-// View navigation: 'landing' | 'standard-quiz' | 'stereo-quiz'
+// View navigation: 'landing' | 'standard-quiz' | 'stereo-quiz' | 'logic-quiz' | 'memory-quiz' | 'spatial-quiz'
 const currentView = ref('landing');
 
 // To track active/highlighted score in the current run leaderboard
 const activePlayerName = ref('');
 
 const handleSelectMode = (mode) => {
-  currentView.value = mode === 'standard' ? 'standard-quiz' : 'stereo-quiz';
+  if (mode === 'standard') {
+    currentView.value = 'standard-quiz';
+  } else if (mode === 'stereo') {
+    currentView.value = 'stereo-quiz';
+  } else if (mode === 'logic') {
+    currentView.value = 'logic-quiz';
+  } else if (mode === 'memory') {
+    currentView.value = 'memory-quiz';
+  } else if (mode === 'spatial') {
+    currentView.value = 'spatial-quiz';
+  }
   quiz.resetQuiz();
 };
 
@@ -40,8 +53,8 @@ const handleSaveScore = (name) => {
         <!-- Brand / Click to go Home -->
         <button @click="goHome" class="flex items-center space-x-2.5 focus:outline-none group">
           <span class="text-2xl group-hover:scale-110 transition-transform">🧠</span>
-          <span class="font-extrabold text-slate-850 dark:text-white tracking-tight hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Aritmatika Numerik
+          <span class="font-extrabold text-slate-850 dark:text-white tracking-tight hover:text-blue-650 dark:hover:text-blue-400 transition-colors">
+            BrainForge
           </span>
         </button>
         
@@ -125,12 +138,30 @@ const handleSaveScore = (name) => {
         @home="goHome"
       />
 
+      <!-- Route 4: Logic Quiz Mode -->
+      <LogicQuizScreen
+        v-else-if="currentView === 'logic-quiz'"
+        @home="goHome"
+      />
+
+      <!-- Route 5: Memory Quiz Mode -->
+      <MemoryQuizScreen
+        v-else-if="currentView === 'memory-quiz'"
+        @home="goHome"
+      />
+
+      <!-- Route 6: Spatial Quiz Mode -->
+      <SpatialQuizScreen
+        v-else-if="currentView === 'spatial-quiz'"
+        @home="goHome"
+      />
+
     </main>
 
     <!-- Footer -->
     <footer class="w-full py-6 border-t border-slate-100 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 text-center text-xs text-slate-400 dark:text-slate-500 transition-colors duration-300">
       <div class="max-w-6xl mx-auto px-4">
-        Aplikasi Kuis Aritmatika Numerik &copy; 2026.
+        BrainForge Kognitif & Psikotes &copy; 2026.
       </div>
     </footer>
   </div>
