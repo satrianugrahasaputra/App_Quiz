@@ -16,21 +16,7 @@ export function useSpeechSynthesis() {
     stop();
     if (!text) return;
     
-    // Format text to introduce dramatic pauses around math operators
-    let formattedText = text
-      .replace(/\s?\+\s?/g, ', ditambah, ')
-      .replace(/\s?-\s?/g, ', dikurangi, ')
-      .replace(/\s?\*\s?/g, ', dikali, ')
-      .replace(/\s?\/\s?/g, ', dibagi, ')
-      .replace(/tambah/gi, ', ditambah, ')
-      .replace(/kurang/gi, ', dikurangi, ')
-      .replace(/kali/gi, ', dikali, ')
-      .replace(/bagi/gi, ', dibagi, ')
-      .replace(/pangkat/gi, ', pangkat, ')
-      .replace(/akar/gi, ', akar, ')
-      .replace(/sama dengan/gi, ', sama dengan, ');
-
-    const utterance = new SpeechSynthesisUtterance(formattedText);
+    const utterance = new SpeechSynthesisUtterance(text);
     
     // Default Indonesian Voice lookup
     const allVoices = window.speechSynthesis.getVoices();
@@ -47,10 +33,9 @@ export function useSpeechSynthesis() {
       utterance.lang = 'id-ID';
     }
     
-    // Clash of Champions Host emulation parameters:
-    // Deeper authoritative pitch (0.88) and distinct, well-paced rate (0.9)
-    utterance.pitch = 0.88;
-    utterance.rate = 0.9;
+    // Standard natural parameters
+    utterance.pitch = 1.0;
+    utterance.rate = 1.0;
     
     utterance.onstart = () => {
       isSpeaking.value = true;
