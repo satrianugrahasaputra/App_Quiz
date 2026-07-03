@@ -70,13 +70,13 @@
           <div class="text-right">
             <span class="font-semibold text-slate-500 dark:text-slate-400">Soal </span>
             <span class="font-bold text-slate-800 dark:text-white">{{ currentIdx + 1 }}</span>
-            <span class="font-semibold text-slate-500 dark:text-slate-400"> dari 5</span>
+            <span class="font-semibold text-slate-500 dark:text-slate-400"> dari 10</span>
           </div>
         </div>
         <div class="relative w-full h-2.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
           <div
             class="h-full bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full transition-all duration-300"
-            :style="{ width: `${(currentIdx / 5) * 100}%` }"
+            :style="{ width: `${(currentIdx / 10) * 100}%` }"
           ></div>
         </div>
       </div>
@@ -115,7 +115,7 @@
           @click="nextQuestion"
           class="w-full py-4 bg-slate-800 dark:bg-slate-700 text-white font-bold rounded-2xl shadow-md hover:bg-slate-900 dark:hover:bg-slate-655 transition-all duration-300 flex items-center justify-center space-x-2"
         >
-          <span>{{ currentIdx < 4 ? 'Pertanyaan Selanjutnya' : 'Lihat Hasil' }}</span>
+          <span>{{ currentIdx < 9 ? 'Pertanyaan Selanjutnya' : 'Lihat Hasil' }}</span>
           <span>→</span>
         </button>
       </div>
@@ -139,13 +139,13 @@
         <div class="bg-slate-50 dark:bg-slate-900/30 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
           <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Skor Akhir</p>
           <p class="text-3xl font-black text-teal-650 dark:text-teal-400 mt-1 font-mono">
-            {{ score }} <span class="text-lg font-normal text-slate-400">/ 5</span>
+            {{ score }} <span class="text-lg font-normal text-slate-400">/ 10</span>
           </p>
         </div>
         <div class="bg-slate-50 dark:bg-slate-900/30 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
           <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Akurasi</p>
           <p class="text-3xl font-black text-blue-600 dark:text-blue-400 mt-1 font-mono">
-            {{ Math.round((score / 5) * 100) }}%
+            {{ Math.round((score / 10) * 100) }}%
           </p>
         </div>
       </div>
@@ -214,7 +214,7 @@ const selectAnswer = (option) => {
 
 const nextQuestion = () => {
   playBeep('click');
-  if (currentIdx.value < 4) {
+  if (currentIdx.value < 9) {
     currentIdx.value++;
     loadQuestion();
   } else {

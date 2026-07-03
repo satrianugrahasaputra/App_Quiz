@@ -183,41 +183,71 @@
         </div>
 
         <!-- 4. Cube Stack 8 (Medium 1) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-stack-8'" width="220" height="220" viewBox="0 0 220 220">
-          <!-- Stack of 8 cubes. Base = 5, L1 = 2, L2 = 1 -->
-          <g transform="translate(60, 140)"><!-- x=0, y=2 -->
+        <svg v-else-if="activeQuestion.svgType === 'cube-stack-8'" width="220" height="220" viewBox="0 0 220 220" class="overflow-visible">
+          <!-- Dashed floor grid to show base footprint -->
+          <g stroke="#94a3b8" stroke-dasharray="2" stroke-width="1.2" fill="none" opacity="0.6">
+            <!-- Ground footprint cells -->
+            <polygon points="110,180 140,165 110,150 80,165" />
+            <polygon points="140,165 170,150 140,135 110,150" />
+            <polygon points="80,165 110,150 80,135 50,150" />
+            <polygon points="110,150 140,135 110,120 80,135" />
+            <polygon points="140,135 170,120 140,105 110,120" />
+            <polygon points="50,150 80,135 50,120 20,135" />
+            <polygon points="80,135 110,120 80,105 50,120" />
+          </g>
+
+          <!-- Dashed/Semi-transparent hidden support cubes -->
+          <!-- Hidden support cube at ground level x=1, y=0 -->
+          <g transform="translate(140, 130)" opacity="0.35" stroke-dasharray="3">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+          </g>
+          <!-- Hidden support cube at ground level x=0, y=1 -->
+          <g transform="translate(80, 130)" opacity="0.35" stroke-dasharray="3">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1"/>
+          </g>
+
+          <!-- Visible cubes (from back to front) -->
+          <!-- x=0, y=2 -->
+          <g transform="translate(50, 130)">
             <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(120, 110)"><!-- x=2, y=0 -->
+          <!-- x=2, y=0 -->
+          <g transform="translate(140, 100)">
             <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(90, 125)"><!-- x=1, y=1 -->
+          <!-- x=1, y=1 -->
+          <g transform="translate(110, 115)">
             <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(110, 145)"><!-- x=0, y=0 -->
+          <!-- x=0, y=0 -->
+          <g transform="translate(110, 135)">
             <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- L1 -->
-          <g transform="translate(110, 110)"><!-- x=0, y=0 L1 -->
+          <!-- Level 1 (2 cubes) -->
+          <g transform="translate(110, 100)"><!-- L1 x=0, y=0 -->
             <polygon points="0,0 30,-15 60,0 30,15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#0284c7" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(80, 125)"><!-- x=1, y=0 L1 -->
+          <g transform="translate(80, 115)"><!-- L1 x=1, y=0 -->
             <polygon points="0,0 30,-15 60,0 30,15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#0284c7" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- L2 -->
-          <g transform="translate(110, 75)"><!-- x=0, y=0 L2 -->
+          <!-- Level 2 (1 top cube) -->
+          <g transform="translate(110, 65)">
             <polygon points="0,0 30,-15 60,0 30,15" fill="#facc15" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="0,0 0,35 30,50 30,15" fill="#ca8a04" stroke="#1e293b" stroke-width="1.5"/>
             <polygon points="30,15 30,50 60,35 60,0" fill="#fef08a" stroke="#1e293b" stroke-width="1.5"/>
@@ -225,19 +255,74 @@
         </svg>
 
         <!-- 5. Cube Net Fold 1 (Medium 2) -->
-        <div v-else-if="activeQuestion.svgType === 'cube-net-fold-1'" class="flex flex-col items-center space-y-4">
-          <svg width="220" height="150" viewBox="0 0 220 150">
-            <!-- Unfolded Cube Net with colors -->
-            <g transform="translate(50, 15)" stroke="#1e293b" stroke-width="1.5">
-              <rect x="30" y="0" width="30" height="30" fill="#ef4444"/> <!-- Red -->
-              <rect x="30" y="30" width="30" height="30" fill="#3b82f6"/> <!-- Blue -->
-              <rect x="30" y="60" width="30" height="30" fill="#10b981"/> <!-- Green -->
-              <rect x="30" y="90" width="30" height="30" fill="#f59e0b"/> <!-- Orange -->
-              <rect x="0" y="30" width="30" height="30" fill="#8b5cf6"/> <!-- Violet -->
-              <rect x="60" y="30" width="30" height="30" fill="#ec4899"/> <!-- Pink -->
-            </g>
-          </svg>
-          <span class="text-xs font-bold text-slate-500">Pola A: Sisi Violet bersebelahan dengan Merah & Hijau (Benar)</span>
+        <div v-else-if="activeQuestion.svgType === 'cube-net-fold-1'" class="flex flex-col items-center space-y-6 w-full">
+          <div class="flex flex-col md:flex-row items-center justify-around w-full gap-6">
+            <!-- Unfolded Net -->
+            <div class="flex flex-col items-center">
+              <svg width="150" height="150" viewBox="0 0 120 150">
+                <g transform="translate(15, 15)" stroke="#1e293b" stroke-width="1.5">
+                  <rect x="30" y="0" width="30" height="30" fill="#ef4444"/> <!-- Red -->
+                  <rect x="30" y="30" width="30" height="30" fill="#3b82f6"/> <!-- Blue -->
+                  <rect x="30" y="60" width="30" height="30" fill="#10b981"/> <!-- Green -->
+                  <rect x="30" y="90" width="30" height="30" fill="#f59e0b"/> <!-- Orange -->
+                  <rect x="0" y="30" width="30" height="30" fill="#8b5cf6"/> <!-- Violet -->
+                  <rect x="60" y="30" width="30" height="30" fill="#ec4899"/> <!-- Pink -->
+                </g>
+              </svg>
+              <span class="text-xs font-bold text-slate-500 mt-1">Jaring-Jaring</span>
+            </div>
+
+            <!-- 3D Folded Cube Options Comparative Grid -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Pola A (Correct: Violet, Red, Blue) -->
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                  <g transform="translate(15, 20)">
+                    <polygon points="0,0 15,-8 30,0 15,8" fill="#ef4444" stroke="#1e293b"/> <!-- Red Top -->
+                    <polygon points="0,0 0,20 15,28 15,8" fill="#8b5cf6" stroke="#1e293b"/> <!-- Violet Left -->
+                    <polygon points="15,8 15,28 30,20 30,0" fill="#3b82f6" stroke="#1e293b"/> <!-- Blue Right -->
+                  </g>
+                </svg>
+                <span class="text-[10px] font-black text-slate-500">Pola A</span>
+              </div>
+              
+              <!-- Pola B (Incorrect: Red + Green opposites adjacent) -->
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                  <g transform="translate(15, 20)">
+                    <polygon points="0,0 15,-8 30,0 15,8" fill="#ef4444" stroke="#1e293b"/> <!-- Red Top -->
+                    <polygon points="0,0 0,20 15,28 15,8" fill="#10b981" stroke="#1e293b"/> <!-- Green Left -->
+                    <polygon points="15,8 15,28 30,20 30,0" fill="#3b82f6" stroke="#1e293b"/> <!-- Blue Right -->
+                  </g>
+                </svg>
+                <span class="text-[10px] font-black text-slate-500">Pola B</span>
+              </div>
+              
+              <!-- Pola C (Incorrect: Violet + Pink opposites adjacent) -->
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                  <g transform="translate(15, 20)">
+                    <polygon points="0,0 15,-8 30,0 15,8" fill="#8b5cf6" stroke="#1e293b"/> <!-- Violet Top -->
+                    <polygon points="0,0 0,20 15,28 15,8" fill="#ec4899" stroke="#1e293b"/> <!-- Pink Left -->
+                    <polygon points="15,8 15,28 30,20 30,0" fill="#3b82f6" stroke="#1e293b"/> <!-- Blue Right -->
+                  </g>
+                </svg>
+                <span class="text-[10px] font-black text-slate-500">Pola C</span>
+              </div>
+              
+              <!-- Pola D (Incorrect: Orange + Blue opposites adjacent) -->
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                  <g transform="translate(15, 20)">
+                    <polygon points="0,0 15,-8 30,0 15,8" fill="#f59e0b" stroke="#1e293b"/> <!-- Orange Top -->
+                    <polygon points="0,0 0,20 15,28 15,8" fill="#3b82f6" stroke="#1e293b"/> <!-- Blue Left -->
+                    <polygon points="15,8 15,28 30,20 30,0" fill="#10b981" stroke="#1e293b"/> <!-- Green Right -->
+                  </g>
+                </svg>
+                <span class="text-[10px] font-black text-slate-500">Pola D</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- 6. Arrow Reflection horizontal (Medium 3) -->
@@ -284,37 +369,58 @@
             </div>
           </div>
         </div>
-
         <!-- 7. Cube Pyramid 14 (Hard 1) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-pyramid-14'" width="220" height="220" viewBox="0 0 220 220">
-          <!-- 3-tiered pyramid. Base 9, Mid 4, Top 1 -->
-          <!-- Base tier front 3 visible -->
-          <g transform="translate(60, 150)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+        <svg v-else-if="activeQuestion.svgType === 'cube-pyramid-14'" width="220" height="220" viewBox="0 0 220 220" class="overflow-visible">
+          <!-- Footprint Grid -->
+          <g stroke="#94a3b8" stroke-dasharray="2" stroke-width="1.2" fill="none" opacity="0.6">
+            <polygon points="120,185 150,170 120,155 90,170"/>
+            <polygon points="150,170 180,155 150,140 120,155"/>
+            <polygon points="90,170 120,155 90,140 60,155"/>
+            <polygon points="120,155 150,140 120,125 90,140"/>
+            <polygon points="150,140 180,125 150,110 120,125"/>
+            <polygon points="60,155 90,140 60,125 30,140"/>
+            <polygon points="90,140 120,125 90,110 60,125"/>
+          </g>
+
+          <!-- Dashed hidden support cubes -->
+          <!-- Center support cube ground level (1,1) -->
+          <g transform="translate(90, 140)" opacity="0.3" stroke-dasharray="2.5">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#cbd5e1" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#cbd5e1" stroke="#1e293b"/>
             <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
+          </g>
+          <!-- Center support cube Level 1 -->
+          <g transform="translate(90, 105)" opacity="0.35" stroke-dasharray="2.5">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#cbd5e1" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#cbd5e1" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
+          </g>
+
+          <!-- Visible cubes (base, mid, top) -->
+          <g transform="translate(60, 150)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
           <g transform="translate(120, 150)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- Mid tier front 2 visible -->
           <g transform="translate(90, 120)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b" stroke-width="1.5"/>
           </g>
           <g transform="translate(60, 105)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- Top tier 1 visible -->
           <g transform="translate(90, 75)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#f43f5e" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#be123c" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#fecdd3" stroke="#1e293b"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#f43f5e" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#be123c" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#fecdd3" stroke="#1e293b" stroke-width="1.5"/>
           </g>
         </svg>
 
@@ -344,34 +450,51 @@
               <text x="92" y="125" font-size="9" font-weight="bold" fill="#fff" stroke="none">BIRU</text>
             </g>
           </svg>
-        </div>
+        </div>        <!-- 9. Cube Stack Donut 12 (Hard 3) -->
+        <svg v-else-if="activeQuestion.svgType === 'cube-stack-donut-12'" width="220" height="220" viewBox="0 0 220 220" class="overflow-visible">
+          <!-- Footprint Grid with hollow center -->
+          <g stroke="#94a3b8" stroke-dasharray="2" stroke-width="1.2" fill="none" opacity="0.6">
+            <polygon points="120,175 150,160 120,145 90,160"/>
+            <polygon points="150,160 180,145 150,130 120,145"/>
+            <polygon points="90,160 120,145 90,130 60,145"/>
+            <polygon points="60,145 90,130 60,115 30,130"/>
+            <polygon points="120,145 150,130 120,115 90,130"/>
+            <polygon points="150,130 180,115 150,100 120,115"/>
+          </g>
 
-        <!-- 9. Cube Stack Donut 12 (Hard 3) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-stack-donut-12'" width="220" height="220" viewBox="0 0 220 220">
-          <!-- Donut stack: 3x3 base (middle empty = 8 cubes) + 2x2 layer (middle empty = 4 cubes) = 12 cubes total -->
-          <!-- Base layer: back/left/right cubes -->
-          <g transform="translate(60, 130)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+          <!-- Dashed hidden support cubes -->
+          <!-- Ground layer hollow center supports (underneath Level 1 cubes) -->
+          <g transform="translate(90, 130)" opacity="0.3" stroke-dasharray="2.5">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#cbd5e1" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#cbd5e1" stroke="#1e293b"/>
             <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
           </g>
-          <g transform="translate(120, 130)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
+
+          <!-- Base layer: outer boundary cubes -->
+          <g transform="translate(60, 140)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
+          <g transform="translate(120, 140)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
+          </g>
+          
           <!-- Level 1 donut layer (4 cubes) -->
-          <g transform="translate(90, 105)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b"/>
+          <g transform="translate(90, 110)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(60, 90)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b"/>
-            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b"/>
-            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b"/>
+          <g transform="translate(60, 95)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b" stroke-width="1.5"/>
           </g>
         </svg>
+
 
       </div>
 
