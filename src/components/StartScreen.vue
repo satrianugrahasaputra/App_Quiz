@@ -178,52 +178,7 @@
               ]"
             ></div>
           </button>
-        </div>
-
-        <!-- Voice Selector Dropdown (Visible if speech is enabled) -->
-        <div v-if="modelValue.speechEnabled.value && voices.length > 0" class="flex flex-col space-y-2 p-4 bg-slate-50 dark:bg-slate-900/30 rounded-2xl border border-slate-100 dark:border-slate-800 text-left">
-          <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-            Pilih Karakter Suara (TTS)
-          </label>
-          <div class="relative">
-            <select
-              :value="selectedVoiceName"
-              @change="changeVoice($event.target.value)"
-              class="w-full p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-250 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
-            >
-              <option value="" disabled>Pilih suara...</option>
-              
-              <!-- Indonesian Voices Group -->
-              <optgroup label="Bahasa Indonesia (Sangat Direkomendasikan)">
-                <option
-                  v-for="voice in indonesianVoices"
-                  :key="voice.name"
-                  :value="voice.name"
-                >
-                  {{ voice.name }} {{ voice.name.includes('Natural') ? '🌟 (Suara Alami)' : '💻' }}
-                </option>
-              </optgroup>
-              
-              <!-- Other System Voices -->
-              <optgroup label="Suara Sistem Lainnya (Mungkin Beraksen Asing)">
-                <option
-                  v-for="voice in otherVoices"
-                  :key="voice.name"
-                  :value="voice.name"
-                >
-                  {{ voice.name }} ({{ voice.lang }})
-                </option>
-              </optgroup>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-              ▼
-            </div>
-          </div>
-          <p class="text-[10px] text-slate-400 dark:text-slate-500">
-            *Suara berlabel <strong>Natural</strong> (jika ada pada peramban Microsoft Edge) memiliki intonasi bicara seperti manusia sungguhan.
-          </p>
-        </div>
-      </div>
+        </div>      </div>
     </div>
 
     <!-- Start Button -->
@@ -306,25 +261,7 @@ const props = defineProps({
 
 const emit = defineEmits(['start', 'clear-leaderboard']);
 
-const { voices, selectedVoiceName, changeVoice } = useSpeechSynthesis();
 
-// Filter for Indonesian voices
-const indonesianVoices = computed(() => {
-  return voices.value.filter(voice => 
-    voice.lang === 'id-ID' || 
-    voice.lang === 'id_ID' || 
-    voice.lang.toLowerCase().includes('id')
-  );
-});
-
-// Filter for other system voices
-const otherVoices = computed(() => {
-  return voices.value.filter(voice => 
-    !(voice.lang === 'id-ID' || 
-      voice.lang === 'id_ID' || 
-      voice.lang.toLowerCase().includes('id'))
-  );
-});
 
 const operationsList = [
   { label: 'Tambah', value: 'addition', icon: '➕' },

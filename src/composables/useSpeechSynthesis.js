@@ -1,38 +1,8 @@
 import { ref } from 'vue';
 
-// Singleton state to share selected voice across all components
 const isSpeaking = ref(false);
-const voices = ref([]);
-const selectedVoiceName = ref(localStorage.getItem('selected-voice') || '');
 
 export function useSpeechSynthesis() {
-  
-  const loadVoices = () => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    
-    const allVoices = window.speechSynthesis.getVoices();
-    voices.value = allVoices;
-    
-    // If no voice is selected yet, try to auto-select the best Indonesian voice
-    if (!selectedVoiceName.value) {
-      const indonesian = allVoices.find(voice => 
-        voice.lang === 'id-ID' || 
-        voice.lang === 'id_ID' || 
-        voice.lang.toLowerCase().startsWith('id')
-      );
-      if (indonesian) {
-        selectedVoiceName.value = indonesian.name;
-        localStorage.setItem('selected-voice', indonesian.name);
-      }
-    }
-  };
-  
-  if (typeof window !== 'undefined' && window.speechSynthesis) {
-    if (window.speechSynthesis.onvoiceschanged !== undefined) {
-      window.speechSynthesis.onvoiceschanged = loadVoices;
-    }
-    loadVoices();
-  }
   
   const stop = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -46,29 +16,41 @@ export function useSpeechSynthesis() {
     stop();
     if (!text) return;
     
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Format text to introduce dramatic pauses around math operators
+    let formattedText = text
+      .replace(/\s?\+\s?/g, ', ditambah, ')
+      .replace(/\s?-\s?/g, ', dikurangi, ')
+      .replace(/\s?\*\s?/g, ', dikali, ')
+      .replace(/\s?\/\s?/g, ', dibagi, ')
+      .replace(/tambah/gi, ', ditambah, ')
+      .replace(/kurang/gi, ', dikurangi, ')
+      .replace(/kali/gi, ', dikali, ')
+      .replace(/bagi/gi, ', dibagi, ')
+      .replace(/pangkat/gi, ', pangkat, ')
+      .replace(/akar/gi, ', akar, ')
+      .replace(/sama dengan/gi, ', sama dengan, ');
+
+    const utterance = new SpeechSynthesisUtterance(formattedText);
     
-    // Find the voice selected by the user
+    // Default Indonesian Voice lookup
     const allVoices = window.speechSynthesis.getVoices();
-    const matchedVoice = allVoices.find(v => v.name === selectedVoiceName.value);
+    const indonesian = allVoices.find(voice => 
+      voice.lang === 'id-ID' || 
+      voice.lang === 'id_ID' || 
+      voice.lang.toLowerCase().startsWith('id')
+    );
     
-    if (matchedVoice) {
-      utterance.voice = matchedVoice;
-      utterance.lang = matchedVoice.lang;
+    if (indonesian) {
+      utterance.voice = indonesian;
+      utterance.lang = indonesian.lang;
     } else {
-      // Fallback to standard Indonesian
-      const indonesian = allVoices.find(voice => 
-        voice.lang === 'id-ID' || 
-        voice.lang === 'id_ID' || 
-        voice.lang.toLowerCase().startsWith('id')
-      );
-      if (indonesian) {
-        utterance.voice = indonesian;
-        utterance.lang = indonesian.lang;
-      } else {
-        utterance.lang = 'id-ID';
-      }
+      utterance.lang = 'id-ID';
     }
+    
+    // Clash of Champions Host emulation parameters:
+    // Deeper authoritative pitch (0.88) and distinct, well-paced rate (0.9)
+    utterance.pitch = 0.88;
+    utterance.rate = 0.9;
     
     utterance.onstart = () => {
       isSpeaking.value = true;
@@ -92,19 +74,11 @@ export function useSpeechSynthesis() {
       speak(text);
     }, 50);
   };
-  
-  const changeVoice = (voiceName) => {
-    selectedVoiceName.value = voiceName;
-    localStorage.setItem('selected-voice', voiceName);
-  };
 
   return {
     isSpeaking,
-    selectedVoiceName,
-    voices,
     speak,
     stop,
-    replay,
-    changeVoice
+    replay
   };
 }
