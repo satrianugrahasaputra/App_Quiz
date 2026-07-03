@@ -1,9 +1,11 @@
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+
+// Singleton state to share selected voice across all components
+const isSpeaking = ref(false);
+const voices = ref([]);
+const selectedVoiceName = ref(localStorage.getItem('selected-voice') || '');
 
 export function useSpeechSynthesis() {
-  const isSpeaking = ref(false);
-  const voices = ref([]);
-  const idVoice = ref(null);
   
   const loadVoices = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -11,18 +13,21 @@ export function useSpeechSynthesis() {
     const allVoices = window.speechSynthesis.getVoices();
     voices.value = allVoices;
     
-    // Find Indonesian voice: look for "id-ID", "id_ID"
-    const indonesian = allVoices.find(voice => 
-      voice.lang === 'id-ID' || 
-      voice.lang === 'id_ID' || 
-      voice.lang.toLowerCase().startsWith('id')
-    );
-    
-    idVoice.value = indonesian || null;
+    // If no voice is selected yet, try to auto-select the best Indonesian voice
+    if (!selectedVoiceName.value) {
+      const indonesian = allVoices.find(voice => 
+        voice.lang === 'id-ID' || 
+        voice.lang === 'id_ID' || 
+        voice.lang.toLowerCase().startsWith('id')
+      );
+      if (indonesian) {
+        selectedVoiceName.value = indonesian.name;
+        localStorage.setItem('selected-voice', indonesian.name);
+      }
+    }
   };
   
   if (typeof window !== 'undefined' && window.speechSynthesis) {
-    // Chrome / Edge loads voices asynchronously
     if (window.speechSynthesis.onvoiceschanged !== undefined) {
       window.speechSynthesis.onvoiceschanged = loadVoices;
     }
@@ -38,18 +43,32 @@ export function useSpeechSynthesis() {
   const speak = (text) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
     
-    // Stop any current speaking to prevent overlaps
     stop();
-    
     if (!text) return;
     
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Assign Indonesian voice if found
-    if (idVoice.value) {
-      utterance.voice = idVoice.value;
+    // Find the voice selected by the user
+    const allVoices = window.speechSynthesis.getVoices();
+    const matchedVoice = allVoices.find(v => v.name === selectedVoiceName.value);
+    
+    if (matchedVoice) {
+      utterance.voice = matchedVoice;
+      utterance.lang = matchedVoice.lang;
+    } else {
+      // Fallback to standard Indonesian
+      const indonesian = allVoices.find(voice => 
+        voice.lang === 'id-ID' || 
+        voice.lang === 'id_ID' || 
+        voice.lang.toLowerCase().startsWith('id')
+      );
+      if (indonesian) {
+        utterance.voice = indonesian;
+        utterance.lang = indonesian.lang;
+      } else {
+        utterance.lang = 'id-ID';
+      }
     }
-    utterance.lang = 'id-ID';
     
     utterance.onstart = () => {
       isSpeaking.value = true;
@@ -69,18 +88,23 @@ export function useSpeechSynthesis() {
   
   const replay = (text) => {
     stop();
-    // Use a tiny timeout to ensure clean start
     setTimeout(() => {
       speak(text);
     }, 50);
   };
   
+  const changeVoice = (voiceName) => {
+    selectedVoiceName.value = voiceName;
+    localStorage.setItem('selected-voice', voiceName);
+  };
+
   return {
     isSpeaking,
-    idVoice,
+    selectedVoiceName,
+    voices,
     speak,
     stop,
     replay,
-    voices
+    changeVoice
   };
 }
