@@ -8,7 +8,7 @@
         </div>
         <h2 class="text-2xl font-black text-slate-800 dark:text-white">Kuis Spasial</h2>
         <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-          Uji kemampuan visualisasi 3D Anda dengan menghitung tumpukan kubus, menganalisis rotasi geometri, dan melipat jaring-jaring 3D.
+          Uji visualisasi spasial Anda: hitung tumpukan kubus 3D, analisis rotasi geometri, pencerminan, dan lipatan jaring-jaring bangun ruang.
         </p>
       </div>
 
@@ -72,209 +72,307 @@
 
       <!-- Question Text Panel -->
       <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-xl p-6 text-center space-y-2">
-        <span class="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase">KUIS SPASIAL</span>
-        <h3 class="text-lg font-bold text-slate-850 dark:text-white leading-relaxed">
+        <span class="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase">KUIS SPASIAL SOAL {{ currentIdx + 1 }}</span>
+        <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white leading-relaxed">
           {{ activeQuestion.text }}
         </h3>
       </div>
 
-      <!-- SVG Illustration viewport -->
-      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-xl p-8 flex items-center justify-center min-h-[260px]">
-        <!-- Stack of 4 Cubes (Easy 1) -->
+      <!-- High-Fidelity SVG Illustrations -->
+      <div class="bg-white dark:bg-slate-850 rounded-3xl border border-slate-100 dark:border-slate-800/80 shadow-xl p-8 flex flex-col items-center justify-center min-h-[300px] overflow-visible">
+        
+        <!-- 1. Cube Stack 4 (Easy 1) -->
         <svg v-if="activeQuestion.svgType === 'cube-stack-4'" width="220" height="200" viewBox="0 0 220 200" class="overflow-visible">
-          <!-- Iso projections (0,0), (1,0), (0,1) Ground. (0,0) L1 -->
-          <!-- Drawing order: back to front -->
-          <!-- ground x=0, y=1 -->
-          <g transform="translate(70, 110)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333" stroke-width="1.5"/>
+          <!-- Coordinates: Base of 3 cubes, 1 cube on top -->
+          <!-- x=0, y=1 ground -->
+          <g transform="translate(60, 110)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- ground x=1, y=0 -->
-          <g transform="translate(130, 80)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333" stroke-width="1.5"/>
+          <!-- x=1, y=0 ground -->
+          <g transform="translate(120, 80)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- ground x=0, y=0 -->
-          <g transform="translate(100, 95)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333" stroke-width="1.5"/>
+          <!-- x=0, y=0 ground -->
+          <g transform="translate(90, 95)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- level 1 x=0, y=0 -->
-          <g transform="translate(100, 60)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffb6c1" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#db7093" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#ffc0cb" stroke="#333" stroke-width="1.5"/>
+          <!-- x=0, y=0 Level 1 (top) -->
+          <g transform="translate(90, 60)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#818cf8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#4f46e5" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#c7d2fe" stroke="#1e293b" stroke-width="1.5"/>
           </g>
         </svg>
 
-        <!-- Stairs 3 Cubes (Easy 3) -->
+        <!-- 2. Cube Stairs 3 (Easy 3) -->
         <svg v-else-if="activeQuestion.svgType === 'cube-stairs-3'" width="220" height="200" viewBox="0 0 220 200">
           <!-- Step 1: ground x=1, y=0 -->
           <g transform="translate(120, 110)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333" stroke-width="1.5"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
           <!-- Step 2: ground x=0, y=0 -->
           <g transform="translate(90, 125)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333" stroke-width="1.5"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
           <!-- Step 3: level 1 x=0, y=0 -->
           <g transform="translate(90, 90)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffb6c1" stroke="#333" stroke-width="1.5"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#db7093" stroke="#333" stroke-width="1.5"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#ffc0cb" stroke="#333" stroke-width="1.5"/>
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#fb7185" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#e11d48" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#fecdd3" stroke="#1e293b" stroke-width="1.5"/>
           </g>
         </svg>
 
-        <!-- Stack of 8 Cubes (Medium 1) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-stack-8'" width="220" height="200" viewBox="0 0 220 200">
-          <!-- Stack representation -->
-          <!-- Draw ground layer (5 cubes) -->
-          <g transform="translate(60, 110)"><!-- x=0,y=2 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333"/>
+        <!-- 3. L-Shape Rotation comparative (Easy 2) -->
+        <div v-else-if="activeQuestion.svgType === 'rotation-l-shape'" class="flex flex-col items-center space-y-4 w-full">
+          <div class="flex items-center space-x-8">
+            <!-- Source Shape -->
+            <div class="flex flex-col items-center">
+              <svg width="80" height="90" viewBox="0 0 80 90">
+                <path d="M 15 10 L 35 10 L 35 60 L 65 60 L 65 80 L 15 80 Z" fill="#3b82f6" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <span class="text-xs font-bold text-slate-500 mt-1">Bentuk Asli</span>
+            </div>
+            
+            <div class="text-2xl text-slate-400 font-bold">➡️</div>
+            
+            <!-- Options A & B -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="70" height="70" viewBox="0 0 80 80">
+                  <!-- Option A: Mirrored / Wrong -->
+                  <path d="M 65 10 L 45 10 L 45 60 L 15 60 L 15 80 L 65 80 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+                </svg>
+                <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan A</span>
+              </div>
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="70" height="70" viewBox="0 0 80 80">
+                  <!-- Option B: Correct Rotated 90° Clockwise -->
+                  <!-- H-bar top: L-leg extending left -->
+                  <path d="M 10 30 L 70 30 L 70 50 L 30 50 L 30 70 L 10 70 Z" fill="#64748b" stroke="#334155" stroke-width="1.5" transform="rotate(0)"/>
+                </svg>
+                <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan B</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+              <svg width="70" height="70" viewBox="0 0 80 80">
+                <!-- Option C: Altered Shape -->
+                <path d="M 15 10 L 55 10 L 55 50 L 65 50 L 65 80 L 15 80 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+              </svg>
+              <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan C</span>
+            </div>
+            <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+              <svg width="70" height="70" viewBox="0 0 80 80">
+                <!-- Option D: Wrong rotation -->
+                <path d="M 15 10 L 65 10 L 65 30 L 35 30 L 35 80 L 15 80 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+              </svg>
+              <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan D</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Cube Stack 8 (Medium 1) -->
+        <svg v-else-if="activeQuestion.svgType === 'cube-stack-8'" width="220" height="220" viewBox="0 0 220 220">
+          <!-- Stack of 8 cubes. Base = 5, L1 = 2, L2 = 1 -->
+          <g transform="translate(60, 140)"><!-- x=0, y=2 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(120, 80)"><!-- x=2,y=0 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333"/>
+          <g transform="translate(120, 110)"><!-- x=2, y=0 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- middle cubes -->
-          <g transform="translate(90, 95)"><!-- x=1,y=1 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333"/>
+          <g transform="translate(90, 125)"><!-- x=1, y=1 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(110, 115)"><!-- x=0,y=0 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+          <g transform="translate(110, 145)"><!-- x=0, y=0 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- Level 1 (2 cubes) -->
-          <g transform="translate(110, 80)"><!-- x=0,y=0 L1 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffb6c1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#db7093" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#ffc0cb" stroke="#333"/>
+          <!-- L1 -->
+          <g transform="translate(110, 110)"><!-- x=0, y=0 L1 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#0284c7" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <g transform="translate(80, 95)"><!-- x=1,y=0 L1 -->
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffb6c1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#db7093" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#ffc0cb" stroke="#333"/>
+          <g transform="translate(80, 125)"><!-- x=1, y=0 L1 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#0284c7" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
           </g>
-          <!-- Level 2 (1 cube) -->
-          <g transform="translate(110, 45)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffffe0" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#darkkhaki" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#fafad2" stroke="#333"/>
+          <!-- L2 -->
+          <g transform="translate(110, 75)"><!-- x=0, y=0 L2 -->
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#facc15" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="0,0 0,35 30,50 30,15" fill="#ca8a04" stroke="#1e293b" stroke-width="1.5"/>
+            <polygon points="30,15 30,50 60,35 60,0" fill="#fef08a" stroke="#1e293b" stroke-width="1.5"/>
           </g>
         </svg>
 
-        <!-- Cube Pyramid 14 (Hard 1) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-pyramid-14'" width="220" height="200" viewBox="0 0 220 200">
-          <!-- 3D stacked Pyramid -->
-          <!-- Render top tier (1 cube) -->
-          <g transform="translate(90, 45)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#ffe4e1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#e6a8d7" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#ffdae9" stroke="#333"/>
+        <!-- 5. Cube Net Fold 1 (Medium 2) -->
+        <div v-else-if="activeQuestion.svgType === 'cube-net-fold-1'" class="flex flex-col items-center space-y-4">
+          <svg width="220" height="150" viewBox="0 0 220 150">
+            <!-- Unfolded Cube Net with colors -->
+            <g transform="translate(50, 15)" stroke="#1e293b" stroke-width="1.5">
+              <rect x="30" y="0" width="30" height="30" fill="#ef4444"/> <!-- Red -->
+              <rect x="30" y="30" width="30" height="30" fill="#3b82f6"/> <!-- Blue -->
+              <rect x="30" y="60" width="30" height="30" fill="#10b981"/> <!-- Green -->
+              <rect x="30" y="90" width="30" height="30" fill="#f59e0b"/> <!-- Orange -->
+              <rect x="0" y="30" width="30" height="30" fill="#8b5cf6"/> <!-- Violet -->
+              <rect x="60" y="30" width="30" height="30" fill="#ec4899"/> <!-- Pink -->
+            </g>
+          </svg>
+          <span class="text-xs font-bold text-slate-500">Pola A: Sisi Violet bersebelahan dengan Merah & Hijau (Benar)</span>
+        </div>
+
+        <!-- 6. Arrow Reflection horizontal (Medium 3) -->
+        <div v-else-if="activeQuestion.svgType === 'arrow-reflection'" class="flex flex-col items-center space-y-4 w-full">
+          <div class="flex items-center space-x-6">
+            <div class="flex flex-col items-center">
+              <svg width="80" height="70" viewBox="0 0 80 70">
+                <path d="M 5 20 L 45 20 L 45 5 L 75 35 L 45 65 L 45 50 L 5 50 Z" fill="#2563eb" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <span class="text-xs font-bold text-slate-500 mt-1">Asli</span>
+            </div>
+            <div class="text-2xl text-slate-400 font-bold">➡️</div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="70" height="60" viewBox="0 0 80 70">
+                  <!-- Option A: Pointing down -->
+                  <path d="M 20 5 L 20 45 L 5 45 L 35 75 L 65 45 L 50 45 L 50 5 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+                </svg>
+                <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan A</span>
+              </div>
+              <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+                <svg width="70" height="60" viewBox="0 0 80 70">
+                  <!-- Option B: Mirror wrong -->
+                  <path d="M 5 20 L 45 20 L 45 5 L 75 35 L 45 65 L 45 50 L 5 50 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+                </svg>
+                <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan B</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+              <svg width="70" height="60" viewBox="0 0 80 70">
+                <!-- Option C: True Reflection pointing left -->
+                <path d="M 75 20 L 35 20 L 35 5 L 5 35 L 35 65 L 35 50 L 75 50 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+              </svg>
+              <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan C</span>
+            </div>
+            <div class="flex flex-col items-center border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
+              <svg width="70" height="60" viewBox="0 0 80 70">
+                <!-- Option D: Altered width -->
+                <path d="M 15 20 L 35 20 L 35 5 L 75 35 L 35 65 L 35 50 L 15 50 Z" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+              </svg>
+              <span class="text-xs font-black text-slate-600 dark:text-slate-400">Pilihan D</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Cube Pyramid 14 (Hard 1) -->
+        <svg v-else-if="activeQuestion.svgType === 'cube-pyramid-14'" width="220" height="220" viewBox="0 0 220 220">
+          <!-- 3-tiered pyramid. Base 9, Mid 4, Top 1 -->
+          <!-- Base tier front 3 visible -->
+          <g transform="translate(60, 150)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
           </g>
-          <!-- Mid tier (4 cubes) -->
-          <g transform="translate(60, 75)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+          <g transform="translate(120, 150)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
           </g>
-          <g transform="translate(120, 75)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+          <!-- Mid tier front 2 visible -->
+          <g transform="translate(90, 120)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b"/>
           </g>
-          <g transform="translate(90, 90)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+          <g transform="translate(60, 105)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#6366f1" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#4f46e5" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#c7d2fe" stroke="#1e293b"/>
           </g>
-          <!-- Ground tier (show front row only) -->
-          <g transform="translate(60, 135)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333"/>
-          </g>
-          <g transform="translate(120, 135)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#a1a1a1" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#7a7a7a" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#c4c4c4" stroke="#333"/>
+          <!-- Top tier 1 visible -->
+          <g transform="translate(90, 75)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#f43f5e" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#be123c" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#fecdd3" stroke="#1e293b"/>
           </g>
         </svg>
 
-        <!-- Donut Stack 12 (Hard 3) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-stack-donut-12'" width="220" height="200" viewBox="0 0 220 200">
-          <g transform="translate(70, 120)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+        <!-- 8. Prism Folding net (Hard 2) -->
+        <div v-else-if="activeQuestion.svgType === 'prism-fold-hard'" class="flex flex-col items-center space-y-4">
+          <svg width="220" height="150" viewBox="0 0 220 150">
+            <!-- Prism Unfolded Net -->
+            <g stroke="#1e293b" stroke-width="1.5">
+              <!-- Central Rectangle (Orange) -->
+              <rect x="75" y="45" width="50" height="60" fill="#f97316"/>
+              <text x="80" y="80" font-size="9" font-weight="bold" fill="#fff" stroke="none">ORANYE</text>
+              
+              <!-- Left Rectangle (Yellow) -->
+              <rect x="25" y="45" width="50" height="60" fill="#eab308"/>
+              <text x="32" y="80" font-size="9" font-weight="bold" fill="#fff" stroke="none">KUNING</text>
+              
+              <!-- Right Rectangle (Green) -->
+              <rect x="125" y="45" width="50" height="60" fill="#22c55e"/>
+              <text x="133" y="80" font-size="9" font-weight="bold" fill="#fff" stroke="none">HIJAU</text>
+              
+              <!-- Top Triangle (Red) -->
+              <polygon points="75,45 125,45 100,10" fill="#ef4444"/>
+              <text x="90" y="35" font-size="9" font-weight="bold" fill="#fff" stroke="none">MERAH</text>
+              
+              <!-- Bottom Triangle (Blue) -->
+              <polygon points="75,105 125,105 100,140" fill="#3b82f6"/>
+              <text x="92" y="125" font-size="9" font-weight="bold" fill="#fff" stroke="none">BIRU</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 9. Cube Stack Donut 12 (Hard 3) -->
+        <svg v-else-if="activeQuestion.svgType === 'cube-stack-donut-12'" width="220" height="220" viewBox="0 0 220 220">
+          <!-- Donut stack: 3x3 base (middle empty = 8 cubes) + 2x2 layer (middle empty = 4 cubes) = 12 cubes total -->
+          <!-- Base layer: back/left/right cubes -->
+          <g transform="translate(60, 130)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
           </g>
-          <g transform="translate(130, 90)">
-            <polygon points="0,0 30,-15 60,0 30,15" fill="#b0c4de" stroke="#333"/>
-            <polygon points="0,0 0,35 30,50 30,15" fill="#4682b4" stroke="#333"/>
-            <polygon points="30,15 30,50 60,35 60,0" fill="#b0e0e6" stroke="#333"/>
+          <g transform="translate(120, 130)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#94a3b8" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#475569" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#cbd5e1" stroke="#1e293b"/>
+          </g>
+          <!-- Level 1 donut layer (4 cubes) -->
+          <g transform="translate(90, 105)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b"/>
+          </g>
+          <g transform="translate(60, 90)">
+            <polygon points="0,0 30,-15 60,0 30,15" fill="#a855f7" stroke="#1e293b"/>
+            <polygon points="0,0 0,30 30,45 30,15" fill="#7e22ce" stroke="#1e293b"/>
+            <polygon points="30,15 30,45 60,30 60,0" fill="#e9d5ff" stroke="#1e293b"/>
           </g>
         </svg>
 
-        <!-- L-Shape Rotation (Easy 2) -->
-        <svg v-else-if="activeQuestion.svgType === 'rotation-l-shape'" width="200" height="150" viewBox="0 0 200 150">
-          <!-- Original Shape on left, options drawn below or described -->
-          <g transform="translate(20, 20)">
-            <path d="M 0 0 L 20 0 L 20 60 L 50 60 L 50 80 L 0 80 Z" fill="#4f46e5" stroke="#333" stroke-width="2"/>
-            <text x="5" y="-5" font-size="10" font-weight="bold">Asli</text>
-          </g>
-          
-          <g transform="translate(110, 20)">
-            <path d="M 0 30 L 60 30 L 60 50 L 80 50 L 80 0 L 0 0 Z" fill="#a1a1a1" stroke="#333" stroke-width="1"/>
-            <text x="35" y="45" font-size="12" font-weight="bold">B (Rotasi 90°)</text>
-          </g>
-        </svg>
-
-        <!-- Cube Net fold (Medium 2) -->
-        <svg v-else-if="activeQuestion.svgType === 'cube-net-fold-1'" width="220" height="160" viewBox="0 0 220 160">
-          <g transform="translate(30, 20)" stroke="#333" stroke-width="1.5" fill="none">
-            <!-- Net representation -->
-            <rect x="30" y="0" width="30" height="30" fill="#f8fafc"/>
-            <rect x="30" y="30" width="30" height="30" fill="#f1f5f9"/>
-            <rect x="30" y="60" width="30" height="30" fill="#e2e8f0"/>
-            <rect x="30" y="90" width="30" height="30" fill="#cbd5e1"/>
-            <rect x="0" y="30" width="30" height="30" fill="#94a3b8"/>
-            <rect x="60" y="30" width="30" height="30" fill="#64748b"/>
-          </g>
-          <text x="140" y="80" font-size="12" font-weight="bold" fill="#333">Pilihan A (Benar)</text>
-        </svg>
-
-        <!-- Arrow reflection (Medium 3) -->
-        <svg v-else-if="activeQuestion.svgType === 'arrow-reflection'" width="220" height="150" viewBox="0 0 220 150">
-          <g transform="translate(30, 40)">
-            <!-- Left Arrow pointing right -->
-            <path d="M 0 20 L 40 20 L 40 0 L 70 30 L 40 60 L 40 40 L 0 40 Z" fill="#3b82f6"/>
-            <text x="25" y="-10" font-size="12" font-weight="bold" fill="#333">Asli</text>
-          </g>
-          
-          <g transform="translate(130, 40)">
-            <!-- Right Arrow pointing left (horizontal reflection) -->
-            <path d="M 70 20 L 30 20 L 30 0 L 0 30 L 30 60 L 30 40 L 70 40 Z" fill="#ef4444"/>
-            <text x="15" y="-10" font-size="12" font-weight="bold" fill="#333">Pilihan C</text>
-          </g>
-        </svg>
-
-        <!-- Prism fold (Hard 2) -->
-        <svg v-else-if="activeQuestion.svgType === 'prism-fold-hard'" width="220" height="150" viewBox="0 0 220 150">
-          <text x="20" y="80" font-size="14" font-weight="bold" fill="#6366f1">📐 Gambar Geometri 3D</text>
-        </svg>
       </div>
 
       <!-- Multiple Choice Options -->
@@ -285,7 +383,7 @@
           @click="selectAnswer(option)"
           :disabled="selectedAnswer !== null"
           :class="[
-            'relative p-5 text-xl font-bold rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-4 select-none font-mono text-center',
+            'relative p-5 text-lg font-bold rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-4 select-none text-center font-mono',
             getButtonClass(option)
           ]"
         >

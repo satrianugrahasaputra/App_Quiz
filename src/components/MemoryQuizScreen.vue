@@ -1,14 +1,14 @@
 <template>
-  <div class="space-y-6 max-w-xl mx-auto animate-fade-in">
+  <div class="space-y-6 max-w-2xl mx-auto animate-fade-in">
     <!-- Config screen (before playing) -->
     <div v-if="!gameStarted && !gameFinished" class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-xl p-8 space-y-6">
       <div class="text-center space-y-3">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-rose-500/10 text-rose-600 dark:bg-rose-500/20 dark:text-rose-455">
           <span class="text-3xl">🎴</span>
         </div>
-        <h2 class="text-2xl font-black text-slate-800 dark:text-white">Kuis Memori Kartu</h2>
+        <h2 class="text-2xl font-black text-slate-800 dark:text-white">Kuis Memori</h2>
         <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-          Ingat posisi kartu remi yang ditampilkan selama 6 detik, kemudian temukan kartu target setelah semuanya dibalik!
+          Uji daya ingat jangka pendek Anda. Hafalkan posisi kartu, angka, atau kata sebelum semuanya dibalik, lalu temukan yang diminta!
         </p>
       </div>
 
@@ -17,24 +17,29 @@
         <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block text-center">
           Pilih Tingkat Kesulitan
         </label>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <button
             v-for="lvl in ['easy', 'medium', 'hard']"
             :key="lvl"
             @click="difficulty = lvl"
             type="button"
             :class="[
-              'py-3 px-4 rounded-2xl border text-center font-bold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-rose-500 capitalize',
+              'p-4 rounded-2xl border text-center font-bold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-rose-500 flex flex-col items-center justify-center space-y-1',
               difficulty === lvl
                 ? lvl === 'easy'
-                  ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-500 text-emerald-700 dark:text-emerald-450 ring-2 ring-emerald-500/20'
+                  ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-500 text-emerald-700 dark:text-emerald-400 ring-2 ring-emerald-500/20'
                   : lvl === 'medium'
                   ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-500 text-rose-705 dark:text-rose-450 ring-2 ring-rose-500/20'
-                  : 'bg-slate-900 text-white border-slate-900 dark:bg-slate-700 dark:border-slate-600 ring-2 ring-slate-500/20'
+                  : 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-500 text-indigo-755 dark:text-indigo-400 ring-2 ring-indigo-500/20'
                 : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:border-slate-350'
             ]"
           >
-            {{ lvl === 'easy' ? '🟢 4 Kartu' : lvl === 'medium' ? '🟡 6 Kartu' : '🔴 8 Kartu' }}
+            <span class="capitalize text-base font-black">
+              {{ lvl === 'easy' ? '🟢 Mudah' : lvl === 'medium' ? '🟡 Sedang' : '🔴 Sulit' }}
+            </span>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">
+              {{ lvl === 'easy' ? '10 Item / 20 Detik' : lvl === 'medium' ? '20 Item / 40 Detik' : '30 Item / 60 Detik' }}
+            </span>
           </button>
         </div>
       </div>
@@ -74,16 +79,16 @@
       <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-xl p-6 text-center space-y-4">
         <!-- Phase 1: Memorizing -->
         <div v-if="isMemorizingPhase" class="space-y-2">
-          <span class="text-xs font-bold tracking-widest text-rose-500 uppercase">FASE MENGHAFAL</span>
+          <span class="text-xs font-bold tracking-widest text-rose-500 uppercase">FASE MENGHAFAL (Tipe: {{ getTypeName(itemType) }})</span>
           <h3 class="text-xl font-black text-slate-800 dark:text-white">
-            Hafalkan posisi kartu dalam <span class="font-mono text-rose-500 animate-pulse text-2xl">{{ memorizationTimer }}</span> detik!
+            Hafalkan posisi item dalam <span class="font-mono text-rose-500 animate-pulse text-2xl">{{ memorizationTimer }}</span> detik!
           </h3>
         </div>
         <!-- Phase 2: Guessing -->
         <div v-else-if="selectedCardIdx === null" class="space-y-2">
           <span class="text-xs font-bold tracking-widest text-amber-500 uppercase">FASE TEBAKAN</span>
           <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center justify-center space-x-2">
-            <span>Di manakah letak kartu: </span>
+            <span>Di manakah letak item: </span>
             <span class="px-3 py-1 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-750 text-2xl font-mono" :class="targetCard.color">
               {{ targetCard.name }}
             </span>
@@ -95,7 +100,7 @@
             {{ isCorrect ? 'BENAR!' : 'SALAH!' }}
           </span>
           <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-            Kartu <span :class="targetCard.color">{{ targetCard.name }}</span> berada di posisi berbingkai hijau.
+            Item <span :class="targetCard.color">{{ targetCard.name }}</span> berada di posisi berbingkai hijau.
           </h3>
         </div>
       </div>
@@ -103,8 +108,8 @@
       <!-- Card Grid -->
       <div 
         :class="[
-          'grid gap-4 justify-center mx-auto my-6',
-          difficulty === 'easy' ? 'grid-cols-2 max-w-xs' : difficulty === 'medium' ? 'grid-cols-3 max-w-sm' : 'grid-cols-4 max-w-lg'
+          'grid gap-2 justify-center mx-auto my-6',
+          difficulty === 'easy' ? 'grid-cols-5 max-w-lg' : difficulty === 'medium' ? 'grid-cols-5 max-w-lg' : 'grid-cols-6 max-w-2xl'
         ]"
       >
         <div
@@ -112,37 +117,55 @@
           :key="card.id"
           @click="clickCard(idx)"
           :class="[
-            'w-24 h-36 rounded-2xl border-2 flex flex-col justify-between p-4 cursor-pointer select-none relative shadow-md transition-all duration-350',
+            'rounded-xl border-2 flex flex-col justify-center items-center cursor-pointer select-none relative shadow-sm transition-all duration-300',
+            // Scale card sizes according to difficulty
+            difficulty === 'easy' ? 'w-20 h-28 p-2 text-sm' : difficulty === 'medium' ? 'w-16 h-24 p-1.5 text-xs' : 'w-14 h-20 p-1 text-[10px]',
             getCardClass(idx)
           ]"
         >
           <!-- Card Front Face -->
           <template v-if="isMemorizingPhase || selectedCardIdx !== null">
-            <div class="text-lg font-bold font-mono text-left leading-none" :class="card.color">
-              {{ card.value }}
-            </div>
-            <div class="text-4xl text-center font-mono my-auto" :class="card.color">
-              {{ card.suit }}
-            </div>
-            <div class="text-lg font-bold font-mono text-right rotate-180 leading-none" :class="card.color">
-              {{ card.value }}
-            </div>
+            <!-- Card Type -->
+            <template v-if="itemType === 'cards'">
+              <div class="w-full text-left font-bold font-mono leading-none" :class="card.color">
+                {{ card.value }}
+              </div>
+              <div class="text-center font-mono my-auto leading-none" :class="[card.color, difficulty === 'easy' ? 'text-3xl' : 'text-2xl']">
+                {{ card.suit }}
+              </div>
+              <div class="w-full text-right font-bold font-mono rotate-180 leading-none" :class="card.color">
+                {{ card.value }}
+              </div>
+            </template>
+            
+            <!-- Word Type -->
+            <template v-else-if="itemType === 'words'">
+              <div class="text-center font-bold px-1 py-0.5 break-words max-w-full truncate leading-tight text-slate-700 dark:text-slate-200">
+                {{ card.name }}
+              </div>
+            </template>
+            
+            <!-- Number Type -->
+            <template v-else>
+              <div class="text-center font-black font-mono leading-none text-indigo-600 dark:text-indigo-400" :class="difficulty === 'easy' ? 'text-xl' : 'text-lg'">
+                {{ card.name }}
+              </div>
+            </template>
             
             <!-- Checkmark / Cross overlay in feedback phase -->
-            <span v-if="selectedCardIdx !== null && card.id === targetCard.id" class="absolute inset-0 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-4xl text-emerald-600">
+            <span v-if="selectedCardIdx !== null && card.id === targetCard.id" class="absolute inset-0 bg-emerald-500/10 rounded-xl flex items-center justify-center text-2xl text-emerald-600">
               ✓
             </span>
-            <span v-else-if="selectedCardIdx === idx && card.id !== targetCard.id" class="absolute inset-0 bg-rose-500/10 rounded-2xl flex items-center justify-center text-4xl text-rose-600">
+            <span v-else-if="selectedCardIdx === idx && card.id !== targetCard.id" class="absolute inset-0 bg-rose-500/10 rounded-xl flex items-center justify-center text-2xl text-rose-600">
               ✗
             </span>
           </template>
 
           <!-- Card Back Face -->
           <template v-else>
-            <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-indigo-650 rounded-2xl flex items-center justify-center shadow-inner border border-white/10">
-              <!-- Grid ornament representing card backing -->
-              <div class="w-[85%] h-[85%] border border-white/20 rounded-xl flex items-center justify-center opacity-30">
-                🎴
+            <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-inner border border-white/5">
+              <div class="w-[85%] h-[85%] border border-white/10 rounded-lg flex items-center justify-center opacity-40 text-sm">
+                ?
               </div>
             </div>
           </template>
@@ -223,16 +246,16 @@ const gameStarted = ref(false);
 const gameFinished = ref(false);
 const cards = ref([]);
 const targetCard = ref(null);
+const itemType = ref('cards');
 const currentIdx = ref(0);
 const score = ref(0);
 
 const isMemorizingPhase = ref(true);
-const memorizationTimer = ref(6);
+const memorizationTimer = ref(40);
 const selectedCardIdx = ref(null);
 const isCorrect = ref(false);
 
 let timerInterval = null;
-let delayTimeout = null;
 
 const startGame = () => {
   playBeep('click');
@@ -247,13 +270,21 @@ const loadQuestion = () => {
   selectedCardIdx.value = null;
   isCorrect.value = false;
   isMemorizingPhase.value = true;
-  memorizationTimer.value = 6;
+  
+  // Set timers based on difficulty
+  if (difficulty.value === 'easy') {
+    memorizationTimer.value = 20;
+  } else if (difficulty.value === 'medium') {
+    memorizationTimer.value = 40;
+  } else {
+    memorizationTimer.value = 60;
+  }
   
   const setup = generateMemoryCards(difficulty.value);
   cards.value = setup.cards;
   targetCard.value = setup.target;
+  itemType.value = setup.itemType;
   
-  // Start 6 seconds countdown
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (memorizationTimer.value > 1) {
@@ -291,6 +322,12 @@ const nextQuestion = () => {
   }
 };
 
+const getTypeName = (type) => {
+  if (type === 'cards') return 'Kartu Remi';
+  if (type === 'words') return 'Kata';
+  return 'Angka';
+};
+
 const getCardClass = (idx) => {
   const card = cards.value[idx];
   const isAnswered = selectedCardIdx.value !== null;
@@ -302,16 +339,14 @@ const getCardClass = (idx) => {
   }
   
   if (!isAnswered) {
-    return 'bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-800 hover:scale-[1.02]';
+    return 'bg-slate-100 dark:bg-slate-900 border-slate-350 dark:border-slate-800 hover:scale-[1.02]';
   }
   
   // Answered state
   if (isTarget) {
-    // Show correct card with green border
     return 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 scale-[1.03] border-2';
   }
   if (isClicked && !isTarget) {
-    // Clicked card was wrong
     return 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 border-2';
   }
   return 'bg-white dark:bg-slate-800 border-slate-105 dark:border-slate-800 opacity-60';
@@ -319,6 +354,5 @@ const getCardClass = (idx) => {
 
 onUnmounted(() => {
   clearInterval(timerInterval);
-  clearTimeout(delayTimeout);
 });
 </script>
