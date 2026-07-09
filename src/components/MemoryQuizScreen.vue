@@ -38,7 +38,7 @@
               {{ lvl === 'easy' ? '🟢 Mudah' : lvl === 'medium' ? '🟡 Sedang' : '🔴 Sulit' }}
             </span>
             <span class="text-[10px] text-slate-500 dark:text-slate-400 font-normal">
-              {{ lvl === 'easy' ? '10 Item / 20 Detik' : lvl === 'medium' ? '20 Item / 40 Detik' : '30 Item / 60 Detik' }}
+              {{ lvl === 'easy' ? '10 Item / 40 Detik' : lvl === 'medium' ? '20 Item / 90 Detik' : '30 Item / 120 Detik' }}
             </span>
           </button>
         </div>
@@ -140,7 +140,7 @@
             
             <!-- Word Type -->
             <template v-else-if="itemType === 'words'">
-              <div class="text-center font-bold px-1 py-0.5 break-words max-w-full truncate leading-tight text-slate-700 dark:text-slate-200">
+              <div class="text-center font-bold px-0.5 py-0.5 break-all leading-tight text-slate-700 dark:text-slate-200">
                 {{ card.name }}
               </div>
             </template>
@@ -242,11 +242,7 @@ const { generateMemoryCards } = useMemoryGenerator();
 
 const difficulty = ref('medium');
 
-const totalQuestions = computed(() => {
-  if (difficulty.value === 'easy') return 10;
-  if (difficulty.value === 'medium') return 20;
-  return 30;
-});
+const totalQuestions = ref(5);
 const gameStarted = ref(false);
 const gameFinished = ref(false);
 const cards = ref([]);
